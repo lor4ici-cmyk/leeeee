@@ -1,0 +1,63 @@
+{
+  "name": "Leeeee",
+  "handle": "@Leeeee",
+  "bio": "Ёу ееееееееееееееееееееееее",
+  "location": "JAPAN",
+  "avatar": "uploads/a29a4c241959688502d72182f9ca11af.gif",
+  "banner": "",
+  "background": "uploads/3baf41e989b891ad6c6951172eced6c7.mp4",
+  "backgroundType": "video",
+  "audio": "uploads/d84803be9e550986dce4060befa2e687.mp3",
+  "track": "DYNASTY",
+  "artist": "VILLIAN, madk1d",
+  "accent": "#f2acbf",
+  "text": "#f1edf9",
+  "bg": "#25101d",
+  "opacity": 28,
+  "blur": 24,
+  "radius": 32,
+  "width": 683,
+  "volume": 34,
+  "layout": "modern",
+  "font": "mono",
+  "effect": "stars",
+  "nameEffect": "glow",
+  "cursor": "none",
+  "entrance": "fade",
+  "gate": true,
+  "gateText": "нажми, чтобы войти",
+  "typewriter": true,
+  "border": true,
+  "tilt": true,
+  "showClock": true,
+  "showPlayer": true,
+  "showBadge": true,
+  "discord": "",
+  "youtube": "",
+  "spotify": "",
+  "telegram": "",
+  "customFont": "",
+  "links": [
+    {
+      "label": "GitHub",
+      "url": "https://github.com/lor4ici-cmyk",
+      "icon": "⌘"
+    },
+    {
+      "label": "Discord Clan Slayers 2",
+      "url": "https://discord.gg/mWC8P6pRzq",
+      "icon": "◈"
+    },
+    {
+      "label": "Roblox",
+      "url": "https://www.roblox.com/users/1899663077/profile",
+      "icon": "⏣"
+    },
+    {
+      "label": "Telegram",
+      "url": "https://t.me/",
+      "icon": "↗",
+      "hidden": true
+    }
+  ]
+}
