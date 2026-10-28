@@ -1,7 +1,7 @@
 {
   "name": "Leeeee",
   "handle": "@lor4ictop",
-  "bio": "WOW that's really cool",
+  "bio": "WOW that's really cool ",
   "location": "JAPAN",
   "avatar": "uploads/dff6115bf00cb7c60245c7707a030e25.gif",
   "banner": "",
@@ -63,6 +63,18 @@
       "icon": "↗",
       "hidden": false,
       "platform": "twitch"
+    },
+    {
+      "label": "Steam",
+      "url": "https://steamcommunity.com/profiles/76561199406492350/",
+      "icon": "↗",
+      "platform": "steam"
+    },
+    {
+      "label": "AniLib",
+      "url": "https://animelib.org/ru/user/10055400",
+      "icon": "↗",
+      "platform": "anilist"
     }
   ],
   "avatarSize": 104,
@@ -80,7 +92,7 @@
   "discordEnabled": true,
   "discordShowStatus": true,
   "discordShowGame": true,
-  "pointerStyle": "star",
+  "pointerStyle": "neon",
   "avatarSource": "custom",
   "discordShowUsername": true,
   "discordLoginFallback": "lor4ictop",
@@ -101,5 +113,15 @@
   "cover": "uploads/162adf00d2cbf96dae5b16ee6c8bf69e.jpg",
   "nameStrength": 46,
   "nameSpeed": 6,
-  "nameSize": 32
+  "nameSize": 32,
+  "characterEnabled": true,
+  "characterTracking": true,
+  "characterBlink": true,
+  "characterHead": true,
+  "characterWidth": 320,
+  "showViews": true,
+  "characterGlow": true,
+  "characterMirror": false,
+  "viewsLabel": "Views",
+  "viewsEndpoint": "https://profile-counter.lor4ici.workers.dev"
 }
