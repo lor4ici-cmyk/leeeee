@@ -123,5 +123,9 @@
   "characterGlow": true,
   "characterMirror": false,
   "viewsLabel": "Views",
-  "viewsEndpoint": "https://profile-counter.lor4ici.workers.dev"
+  "viewsEndpoint": "https://profile-counter.lor4ici.workers.dev",
+  "backgroundDim": 0,
+  "backgroundVignette": 59,
+  "backgroundSaturation": 157,
+  "backgroundBlur": 7
 }
