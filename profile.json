@@ -1,0 +1,86 @@
+{
+  "name": "Leeeee",
+  "handle": "@lor4ictop",
+  "bio": "WOW that's really cool",
+  "location": "JAPAN",
+  "avatar": "uploads/dff6115bf00cb7c60245c7707a030e25.gif",
+  "banner": "",
+  "background": "uploads/eadee05e21662724e86bde52aaca57d3.mp4",
+  "backgroundType": "video",
+  "audio": "uploads/026f38a7e8ae48b73cef0b07f72f1c2e.mp3",
+  "track": "DYNASTY",
+  "artist": "VILLIAN, madk1d",
+  "accent": "#a1ace3",
+  "text": "#ddccff",
+  "bg": "#2a1321",
+  "opacity": 27,
+  "blur": 24,
+  "radius": 32,
+  "width": 683,
+  "volume": 34,
+  "layout": "portfolio",
+  "font": "serif",
+  "effect": "stars",
+  "nameEffect": "glow",
+  "cursor": "none",
+  "entrance": "fade",
+  "gate": true,
+  "gateText": "WELCOME",
+  "typewriter": true,
+  "border": false,
+  "tilt": true,
+  "showClock": false,
+  "showPlayer": true,
+  "showBadge": true,
+  "discord": "",
+  "youtube": "",
+  "spotify": "",
+  "telegram": "",
+  "customFont": "",
+  "links": [
+    {
+      "label": "GitHub",
+      "url": "https://github.com/lor4ici-cmyk",
+      "icon": "⌘",
+      "platform": "github"
+    },
+    {
+      "label": "Discord Clan Slayers 2",
+      "url": "https://discord.gg/mWC8P6pRzq",
+      "icon": "◈",
+      "platform": "discord"
+    },
+    {
+      "label": "Roblox",
+      "url": "https://www.roblox.com/users/1899663077/profile",
+      "icon": "⏣",
+      "platform": "roblox"
+    },
+    {
+      "label": "Telegram",
+      "url": "https://t.me/",
+      "icon": "↗",
+      "hidden": true,
+      "platform": "telegram"
+    }
+  ],
+  "playlist": [
+    {
+      "title": "DYNASTY",
+      "url": "uploads/521d448b9393d9070eabab5c9cad07ea.mp3",
+      "artist": "VILLIAN, madk1d",
+      "cover": "uploads/fc7ed9b15260b829e5679894357753ae.jpg"
+    }
+  ],
+  "avatarSize": 92,
+  "avatarGlow": true,
+  "alignment": "left",
+  "mobileAvatar": 82,
+  "avatarBorder": 2,
+  "avatarRadius": 24,
+  "seoTitle": "Leeeee",
+  "seoDescription": "REAL?",
+  "seoImage": "uploads/7e2b1d2b4e2d95ce46c76605d051e316.gif",
+  "favicon": "uploads/ca8fbbc2dc9ec47a00e750aeec5da1d8.gif",
+  "siteURL": "https://lor4ici-cmyk.github.io/Site/#"
+}
