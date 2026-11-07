@@ -1,0 +1,9 @@
+Загрузите ВСЁ содержимое dist в корень репозитория Site, включая uploads.
+Медиа:
+uploads/dff6115bf00cb7c60245c7707a030e25.gif
+uploads/172eddcb0ec348e76f7ed276c1ba6c45.mp4
+uploads/026f38a7e8ae48b73cef0b07f72f1c2e.mp3
+uploads/162adf00d2cbf96dae5b16ee6c8bf69e.jpg
+uploads/7e2b1d2b4e2d95ce46c76605d051e316.gif
+uploads/ca8fbbc2dc9ec47a00e750aeec5da1d8.gif
+Не загружайте data/auth.json.
