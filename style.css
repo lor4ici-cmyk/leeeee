@@ -3,4 +3,4 @@
 
 #player[hidden],.online[hidden]{display:none}.discord-handle:not([hidden]){display:block;font-size:11px;color:#c0b4cd;margin-top:4px}#bio,#handle{color:var(--text)}
 
-#gate[hidden]{display:none}#gate{backdrop-filter:none;background:#0c0914f5}body[data-static="true"] .grain{display:none}body[data-static="true"] .profile{--blur:8px} @media(max-width:650px){body[data-static="true"] .profile,body[data-static="true"] .separate-blocks .identity{backdrop-filter:none;-webkit-backdrop-filter:none}}
+#gate[hidden]{display:none}body[data-static="true"] .grain{display:none}
