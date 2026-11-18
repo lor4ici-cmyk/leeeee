@@ -3,7 +3,7 @@
   "handle": "@lor4ictop",
   "bio": "WOW that's really cool ",
   "location": "JAPAN",
-  "avatar": "uploads/dff6115bf00cb7c60245c7707a030e25.gif",
+  "avatar": "uploads/7e2b1d2b4e2d95ce46c76605d051e316.gif",
   "banner": "",
   "background": "uploads/172eddcb0ec348e76f7ed276c1ba6c45.mp4",
   "backgroundType": "video",
@@ -84,10 +84,10 @@
   "avatarBorder": 0,
   "avatarRadius": 56,
   "seoTitle": "Leeeee",
-  "seoDescription": "REAL?",
-  "seoImage": "uploads/7e2b1d2b4e2d95ce46c76605d051e316.gif",
-  "favicon": "uploads/ca8fbbc2dc9ec47a00e750aeec5da1d8.gif",
-  "siteURL": "https://lor4ici-cmyk.github.io/Site/#",
+  "seoDescription": "WOW that's really cool",
+  "seoImage": "assets/share.jpg",
+  "favicon": "uploads/7e2b1d2b4e2d95ce46c76605d051e316.gif",
+  "siteURL": "https://lor4ici-cmyk.github.io/leeeee/",
   "discordUserID": "998227605771788318",
   "discordEnabled": true,
   "discordShowStatus": true,
@@ -127,5 +127,6 @@
   "backgroundDim": 0,
   "backgroundVignette": 59,
   "backgroundSaturation": 157,
-  "backgroundBlur": 7
+  "backgroundBlur": 7,
+  "backgroundPoster": "assets/background.webp"
 }

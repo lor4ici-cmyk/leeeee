@@ -3,7 +3,7 @@ specs.media.push(['cover','Обложка единственного трека'
 specs.discordProfile=[['discordEnabled','Включить Discord-интеграцию','check'],['discordUserID','Discord ID пользователя'],['discordShowStatus','Показывать статус','check'],['discordShowGame','Показывать игру','check'],['avatarSource','Основная аватарка','select','discord:Из Discord,custom:Своя загрузка'],['discordShowUsername','Показывать Discord-логин под ником','check'],['discordDecorations','Украшение Discord-аватара (если доступно)','check'],['avatarDecoration','Своя рамка PNG / GIF','file']];
 specs.design.push(['blockStyle','Стиль блоков','select','glass:Стекло,liquid:Жидкое стекло,solid:Плотный,minimal:Минимализм,neon:Неон'],['separateBlocks','Раздельные блоки','check'],['blockRadius','Скругление блоков','range','0,35'],['blockGap','Расстояние между блоками','range','4,28'],['linksLayout','Расположение ссылок','select','list:Список,grid:Сетка'],['compact','Компактная карточка','check']);
 specs.effects.push(['pointerStyle','Курсор','select','star:Белая звезда с обводкой,diamond:Кристалл,cross:Прицел,heart:Сердце,default:Системный']);
-const dTab=document.createElement('button');dTab.textContent='Discord';dTab.dataset.tab='discordProfile';dTab.onclick=()=>{tab='discordProfile';fields();};$('tabs').append(dTab);
+const dTab=document.createElement('button');dTab.textContent='Discord';dTab.dataset.tab='discordProfile';dTab.onclick=()=>{tab='discordProfile';fields();};$('tabs')?.append(dTab);
 const v3css=document.createElement('style');v3css.textContent=`
 #discordProfile{margin:18px 0 0;padding:18px;display:flex;align-items:center;gap:14px;border:1px solid #ffffff18;border-radius:var(--block-radius,18px);background:linear-gradient(120deg,#7263cf40,#7b4ada22)}
 .dc-avatar-wrap{position:relative;width:62px;height:62px;flex-shrink:0}.dc-avatar{width:100%;height:100%;border-radius:50%;object-fit:cover;background:#ffffff12}.dc-decoration{position:absolute;width:124%;height:124%;left:-12%;top:-12%;object-fit:contain;pointer-events:none}.dc-dot{position:absolute;right:0;bottom:0;width:17px;height:17px;border:4px solid #251c3c;border-radius:50%;background:#89919d}.dc-details{min-width:0;flex:1}.dc-name{font-size:15px;font-weight:800;overflow-wrap:anywhere}.dc-status{font-size:11px;opacity:.6;margin-top:5px}.dc-game{font-size:11px;margin-top:9px;color:var(--accent);overflow-wrap:anywhere}.dc-label{font-size:8px;letter-spacing:1.4px;opacity:.5;margin-left:auto;align-self:flex-start}
@@ -21,6 +21,7 @@ const mainGame=document.createElement('div');mainGame.className='main-game';main
 let discordData=null,discordError='',discordFetchedID='',discordRequest=0,inFlight=false;
 const statusInfo={online:['В сети','#3ba55d'],idle:['Не активен','#faa61a'],dnd:['Не беспокоить','#ed4245'],offline:['Не в сети','#80848e']};
 function decorationAsset(user){const asset=user?.avatar_decoration_data?.asset;return /^[a-zA-Z0-9_]+$/.test(asset||'')?'https://cdn.discordapp.com/avatar-decoration-presets/'+asset+'.png?size=240':'';}
+const discordHandle=document.createElement('span');discordHandle.className='discord-handle';$('handle').after(discordHandle);
 function drawDiscord(){
 const enabled=!!p.discordEnabled,user=enabled?discordData?.discord_user:null;
 const online=document.querySelector('.online');online.hidden=true;online.style.display='none';
@@ -36,9 +37,7 @@ av.append(mainDot);mainDot.hidden=!(enabled&&p.discordShowStatus);
 const status=enabled&&discordData?statusInfo[discordData.discord_status]:null;
 mainDot.dataset.status=status?discordData.discord_status:'unknown';
 mainDot.style.background=status?status[1]:'#787581';mainDot.title=status?status[0]:(discordError||'Подключение к Discord…');mainDot.setAttribute('role','img');mainDot.setAttribute('aria-label',mainDot.title);
-$('handle').hidden=!p.discordShowUsername;
-$('handle').textContent=p.discordShowUsername?'@'+(user?.username||p.discordLoginFallback||'lor4ictop'):'';
-$('handle').title=user?'Discord логин':enabled?'Discord-логин из настроек; API ещё не подтверждён':'Discord-логин из настроек';
+const username=user?.username||p.discordLoginFallback||'';const discordLabel=username?'@'+username:'';discordHandle.hidden=!enabled||!p.discordShowUsername||!discordLabel||discordLabel===p.handle;discordHandle.textContent=discordHandle.hidden?'':'Discord: '+discordLabel;
 const activity=enabled?discordData?.activities?.find(a=>a.type===0):null;
 mainGame.hidden=!(p.discordShowGame&&activity&&discordData.discord_status!=='offline');mainGame.textContent=mainGame.hidden?'':'Играет в '+activity.name;
 }
@@ -62,7 +61,7 @@ specs.discordProfile.push(['discordLoginFallback','Discord-логин до по�
 const nameSpec=specs.effects.find(row=>row[0]==='nameEffect');nameSpec[3]='none:Без эффекта,glow:Мягкое свечение,rainbow:Цветной градиент,pulse:Пульсация,shine:Световой блик,outline:Контур,neon:Неон,chromatic:Хроматический сдвиг';
 specs.effects.push(['nameStrength','Интенсивность эффекта ника','range','0,100'],['nameSpeed','Скорость эффекта ника','range','2,12'],['nameSize','Размер ника','range','20,48']);
 specs.details=[['showClock','Показывать время','check'],['clockZone','Часовой пояс (пусто — посетителя)'],['clockFormat','Формат часов','select','24:24 часа,12:12 часов'],['clockSeconds','Показывать секунды','check'],['clockIcon','Значок часов'],['showDate','Показывать дату внизу','check'],['showLocation','Показывать местоположение','check'],['location','Текст местоположения'],['locationIcon','Значок местоположения'],['metaStyle','Стиль времени и места','select','plain:Простой,pills:Плашки,outline:Контурные плашки'],['metaSize','Размер подписей','range','9,16'],['metaAccent','Акцентный цвет подписей','check']];
-const metaTab=document.createElement('button');metaTab.textContent='Время и место';metaTab.dataset.tab='details';metaTab.onclick=()=>{tab='details';fields();};$('tabs').append(metaTab);
+const metaTab=document.createElement('button');metaTab.textContent='Время и место';metaTab.dataset.tab='details';metaTab.onclick=()=>{tab='details';fields();};$('tabs')?.append(metaTab);
 const identityCSS=document.createElement('style');identityCSS.textContent=`
 .main-status{position:absolute;right:-3px;bottom:-3px;width:19px;height:19px;border:4px solid #211a2d;border-radius:50%;z-index:3;box-shadow:0 1px 5px #0005}.main-status[hidden]{display:none}.main-status[data-status=dnd]::after{content:'';position:absolute;inset:4px 1px;background:#211a2d;border-radius:2px}.main-status[data-status=idle]::after{content:'';position:absolute;left:-1px;top:-1px;width:7px;height:7px;background:#211a2d;border-radius:50%}.main-status[data-status=offline]::after{content:'';position:absolute;inset:3px;background:#211a2d;border-radius:50%}.main-status[data-status=unknown]{background:repeating-linear-gradient(45deg,#888 0 3px,#555 3px 6px)!important}
 .main-game{font-size:10px;line-height:1.6;color:var(--accent);margin-top:7px;overflow-wrap:anywhere}.identity-text{flex:1}#handle[hidden]{display:none}#name{font-size:var(--name-size,30px);animation-duration:var(--name-speed,4s)}

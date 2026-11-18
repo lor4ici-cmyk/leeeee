@@ -1,5 +1,5 @@
 /* Profile Studio 2: no dependencies; shared by local and hosted editor. */
-const previewMode=new URLSearchParams(location.search).has('preview');
+const previewMode=new URLSearchParams(location.search).has('preview')&&!staticMode;
 const escHTML=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const style=document.createElement('style');style.textContent=`
 .avatar{width:var(--avatar-size,76px);height:var(--avatar-size,76px);border-radius:var(--avatar-radius,23px);border:var(--avatar-border,1px) solid var(--accent)}
@@ -15,15 +15,17 @@ document.head.append(style);
 specs.design.push(['avatarSize','Размер аватара на ПК','range','40,180'],['avatarRadius','Скругление аватара','range','0,90'],['avatarBorder','Толщина рамки аватара','range','0,8'],['avatarGlow','Анимированное свечение аватара','check'],['alignment','Расположение профиля','select','left:Слева,center:По центру'],['mobileAvatar','Размер аватара на телефоне','range','40,130'],['mobilePadding','Отступы карточки на телефоне','range','12,40']);
 specs.seo=[['seoTitle','Заголовок страницы'],['seoDescription','Описание превью','textarea'],['seoImage','Картинка превью (PNG/JPG)','file'],['favicon','Значок вкладки (PNG/ICO)','file'],['siteURL','Публичный адрес сайта (https://...)']];
 
-for(const [key,title] of [['seo','Превью ссылки'],['history','История']]){const b=document.createElement('button');b.textContent=title;b.dataset.tab=key;b.onclick=()=>{tab=key;fields();};$('tabs').append(b);}
+if(!staticMode)for(const [key,title] of [['seo','Превью ссылки'],['history','История']]){const b=document.createElement('button');b.textContent=title;b.dataset.tab=key;b.onclick=()=>{tab=key;fields();};$('tabs').append(b);}
 const controls=document.createElement('div');controls.className='preview-tools';
 function button(text,fn,parent=controls){const b=document.createElement('button');b.type='button';b.className='quiet';b.textContent=text;b.onclick=fn;parent.append(b);return b;}
-const frame=document.createElement('iframe');frame.id='devicePreview';frame.title='Предпросмотр телефона';frame.hidden=true;document.body.append(frame);
+const frame=document.createElement('iframe');frame.id='devicePreview';frame.title='Предпросмотр телефона';frame.hidden=true;if(!staticMode)document.body.append(frame);
 button('▣ ПК',()=>{frame.hidden=true;});button('▯ Телефон',()=>{frame.hidden=false;syncPreview();});
 button('↶ Отменить',()=>{if(!undoStack.length)return toast('Нет изменений для отмены');p=undoStack.pop();previous=structuredClone(p);dirty=true;render();fields();});
 button('↺ Сохранённое',()=>{undoStack.push(structuredClone(p));p=structuredClone(original);previous=structuredClone(p);dirty=true;render();fields();toast('Возвращено сохранённое оформление. Нажми «Опубликовать».');});
-$('tabs').after(controls);let undoStack=[],previous=null;
-function syncPreview(){if(frame.hidden||!p)return;
+if(!staticMode)$('tabs').after(controls);let undoStack=[],previous=null;
+let previewPending=false;
+function syncPreview(){if(staticMode||frame.hidden||!p||previewPending)return;previewPending=true;requestAnimationFrame(()=>{previewPending=false;drawPreview();});}
+function drawPreview(){if(frame.hidden||!p)return;
 const doc=document.implementation.createHTMLDocument('Предпросмотр телефона');
 const base=doc.createElement('base');base.href=new URL('.',location.href).href;doc.head.append(base);
 for(const el of document.head.querySelectorAll('style,link[rel=stylesheet]'))doc.head.append(el.cloneNode(true));
@@ -53,6 +55,6 @@ async function uploadFile(file){if(file.size>100*1024*1024)throw Error('Макс
 function textField(parent,title,value,change){const label=document.createElement('label');const span=document.createElement('span');span.textContent=title;const input=document.createElement('input');input.value=value||'';input.oninput=()=>change(input.value);label.append(span,input);parent.append(label);return label;}
 fields=function(){if(tab==='history'){const f=$('fields');f.replaceChildren();const note=document.createElement('p');note.className='field-note';note.textContent='Сервер хранит последние 30 опубликованных версий. Восстановление сначала открывает предпросмотр; для публикации нажми «Опубликовать». Медиафайлы хранятся отдельно.';f.append(note);button('Загрузить историю',async()=>{try{const h=await api('api/history',{method:'POST'});f.replaceChildren(note);if(!h.length)toast('История пока пуста');h.forEach(item=>button(new Date(item.date).toLocaleString('ru')+' — '+item.profile.name,()=>{p=item.profile;changed();render();toast('Версия открыта в предпросмотре');},f));}catch(e){toast(e.message);}},f);button('Сохранить свою тему',()=>{const name=prompt('Название темы');if(!name)return;try{const all=JSON.parse(localStorage.getItem('profile-themes')||'[]');all.unshift({name,profile:structuredClone(p)});localStorage.setItem('profile-themes',JSON.stringify(all.slice(0,15)));fields();}catch{toast('Не удалось сохранить тему');}},f);try{for(const item of JSON.parse(localStorage.getItem('profile-themes')||'[]'))button('Тема: '+item.name,()=>{p=structuredClone(item.profile);changed();render();},f);}catch{}return;}
 baseFields();if(tab==='links'){$('fields').querySelectorAll('.link-edit').forEach((row,i)=>{const l=p.links[i];const select=document.createElement('select');select.setAttribute('aria-label','Иконка платформы');for(const name of ['','github','discord','roblox','telegram','youtube','spotify','twitch','instagram','tiktok','steam','epicgames','gogdotcom','battledotnet','playstation','xbox','itchdotio','reddit','pinterest','x','bluesky','mastodon','vk','soundcloud','applemusic','bandcamp','lastdotfm','osu','anilist','myanimelist','patreon','kofi','buymeacoffee','boosty'])select.append(new Option(name||'Свой символ',name));select.value=l.platform||'';select.onchange=()=>{l.platform=select.value;changed();};row.append(select);textField(row,'URL своей SVG/PNG иконки',l.iconImage,value=>{l.iconImage=value;changed();});const upload=document.createElement('input');upload.type='file';upload.accept='image/png,image/webp,image/jpeg';upload.setAttribute('aria-label','Загрузить свою иконку');upload.onchange=async()=>{try{l.iconImage=await uploadFile(upload.files[0]);changed();fields();}catch(e){toast(e.message);}};row.append(upload);});}};
-$('closeEditor').addEventListener('click',()=>frame.hidden=true);
+$('closeEditor')?.addEventListener('click',()=>frame.hidden=true);
 // The initial fetch in app.js resolves after this file has installed its render hooks.
 if(p)render();
